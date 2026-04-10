@@ -24,7 +24,7 @@ def flatten(x: Iterable[Any]) -> list[Any]:
     >>> flatten(["foo", ["baz", 42], "bar"])
     ['foo', 'baz', 42, 'bar']
     """
-    return list(iflatten(x))
+    pass
 
 
 def iflatten(x: Iterable[Any]) -> Iterator[Any]:
@@ -34,11 +34,7 @@ def iflatten(x: Iterable[Any]) -> Iterator[Any]:
     >>> list(iflatten([[1, 2], (3, 4)]))
     [1, 2, 3, 4]
     """
-    for el in x:
-        if _is_listlike(el):
-            yield from flatten(el)
-        else:
-            yield el
+    pass
 
 
 def _is_listlike(x: Any) -> bool:
@@ -62,7 +58,7 @@ def _is_listlike(x: Any) -> bool:
     >>> _is_listlike(range(5))
     True
     """
-    return hasattr(x, "__iter__") and not isinstance(x, (str, bytes))
+    pass
 
 
 def extract_regex(
@@ -73,33 +69,9 @@ def extract_regex(
     * if the regex contains multiple numbered groups, all those will be returned (flattened)
     * if the regex doesn't contain any group the entire regex matching is returned
     """
-    if isinstance(regex, str):
-        regex = re.compile(regex, re.UNICODE)
-
-    if "extract" in regex.groupindex:
-        # named group
-        try:
-            extracted = cast("re.Match[str]", regex.search(text)).group("extract")
-        except AttributeError:
-            strings = []
-        else:
-            strings = [extracted] if extracted is not None else []
-    else:
-        # full regex or numbered groups
-        strings = regex.findall(text)
-
-    strings = flatten(strings)
-    if not replace_entities:
-        return strings
-    return [w3lib_replace_entities(s, keep=["lt", "amp"]) for s in strings]
+    pass
 
 
 def shorten(text: str, width: int, suffix: str = "...") -> str:
     """Truncate the given text to fit in the given width."""
-    if len(text) <= width:
-        return text
-    if width > len(suffix):
-        return text[: width - len(suffix)] + suffix
-    if width >= 0:
-        return suffix[len(suffix) - width :]
-    raise ValueError("width must be equal or greater than 0")
+    pass
